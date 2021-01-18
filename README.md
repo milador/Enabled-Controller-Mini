@@ -6,7 +6,7 @@ Enabled Controller Mini is a more affordable version of <a href="https://github.
 <img align="center" src="https://raw.githubusercontent.com/milador/Enabled-Controller-Mini/main/Resources/Images/Enabled_Controller_Mini.png" width="50%" height="50%" alt="Enabled Controller Mini"/>
 </p>
 
-The device offers up to four switch input enclosures through four 3.5mm audio jacks and four analog inputs through one 3.5mm headphone jack. The one 3.5mm headphone jacks can be used to connect one X-Y analog joysticks.
+The device offers up to four switch input enclosures through four 3.5mm audio jacks and four analog inputs through one 3.5mm headphone jack. The one 3.5mm headphone jacks can be used to connect one X-Y analog joystick.
 
 The internal RGB led of QT Py board is used to provide visual feedback for each action.
 
