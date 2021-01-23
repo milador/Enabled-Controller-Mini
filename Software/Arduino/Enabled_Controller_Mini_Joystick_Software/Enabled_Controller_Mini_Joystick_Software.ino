@@ -26,14 +26,14 @@
 #define LED_PIN 11
 
 
-#define SWITCH_A_PIN 3
-#define SWITCH_B_PIN 2
-#define SWITCH_C_PIN 1
-#define SWITCH_D_PIN 0
+#define SWITCH_A_PIN 6
+#define SWITCH_B_PIN 7
+#define SWITCH_C_PIN 2
+#define SWITCH_D_PIN 3
 
 //Define Joystick pins
-#define JOYSTICK_X1_PIN A6
-#define JOYSTICK_Y1_PIN A7  
+#define JOYSTICK_X1_PIN A0
+#define JOYSTICK_Y1_PIN A1  
 
 
 // Variable Declaration
@@ -159,6 +159,8 @@ void setup() {
   pinMode(SWITCH_D_PIN, INPUT_PULLUP);  
 
   //Initialize the LED pin as an output
+  pinMode(12, OUTPUT); 
+  digitalWrite(12, LOW);
   pinMode(LED_PIN, OUTPUT);                                                      
 
 
@@ -319,6 +321,8 @@ void joystickAction(int mode) {
     joystickX = 0;
     joystickY = 0;
   }
+
+  Serial.println(analogRead(JOYSTICK_Y1_PIN));
 
     //Perform button actions
     if(!switchAState) {

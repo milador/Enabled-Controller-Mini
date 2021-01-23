@@ -1,4 +1,3 @@
-
 /** ************************************************************************
  * File Name: Enabled_Controller_Mini_USB_Software.ino 
  * Title: Enabled Controller Mini USB Software
@@ -30,10 +29,10 @@
 //Define Switch pins
 #define LED_PIN 11
 
-#define SWITCH_A_PIN 3
-#define SWITCH_B_PIN 2
-#define SWITCH_C_PIN 1
-#define SWITCH_D_PIN 0
+#define SWITCH_A_PIN 6
+#define SWITCH_B_PIN 7
+#define SWITCH_C_PIN 2
+#define SWITCH_D_PIN 3
 
 EasyMorse morse;
 
@@ -172,7 +171,6 @@ void setup() {
 
   //Initialize the LED pin as an output
   pinMode(LED_PIN, OUTPUT);                                                      
-
 
 };
 
