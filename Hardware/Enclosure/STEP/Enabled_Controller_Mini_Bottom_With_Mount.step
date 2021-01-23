@@ -12,7 +12,7 @@ FILE_NAME(
 /* name */ 
 'C:/Users/Milad/Development/Personal/Enabled-Controller-Mini/Hardware/
 Enclosure/STEP/Enabled_Controller_Mini_Bottom_With_Mount.step',
-/* time_stamp */ '2021-01-16T18:16:14-08:00',
+/* time_stamp */ '2021-01-22T17:29:38-08:00',
 /* author */ (''),
 /* organization */ (''),
 /* preprocessor_version */ 'ST-DEVELOPER v18.1',
@@ -11971,13 +11971,13 @@ SOLID_ANGLE_UNIT()
 #10941=SHAPE_REPRESENTATION('',(#5046),#10929);
 #10942=PRODUCT_DEFINITION_CONTEXT('part definition',#10950,'design');
 #10943=PRODUCT_DEFINITION('Enabled_Controller_Mini_Bottom_With_Mount',
-'Enabled_Controller_Mini_Bottom_With_Mount v1',#10945,#10942);
+'Enabled_Controller_Mini_Bottom_With_Mount v2',#10945,#10942);
 #10944=PRODUCT_DEFINITION('Plastic-Case','Plastic-Case',#10946,#10942);
 #10945=PRODUCT_DEFINITION_FORMATION('',$,#10952);
 #10946=PRODUCT_DEFINITION_FORMATION('',$,#10953);
 #10947=PRODUCT_RELATED_PRODUCT_CATEGORY(
-'Enabled_Controller_Mini_Bottom_With_Mount v1',
-'Enabled_Controller_Mini_Bottom_With_Mount v1',(#10952));
+'Enabled_Controller_Mini_Bottom_With_Mount v2',
+'Enabled_Controller_Mini_Bottom_With_Mount v2',(#10952));
 #10948=PRODUCT_RELATED_PRODUCT_CATEGORY('Plastic-Case','Plastic-Case',(#10953));
 #10949=APPLICATION_PROTOCOL_DEFINITION('international standard',
 'automotive_design',2009,#10950);
@@ -11985,7 +11985,7 @@ SOLID_ANGLE_UNIT()
 'Core Data for Automotive Mechanical Design Process');
 #10951=PRODUCT_CONTEXT('part definition',#10950,'mechanical');
 #10952=PRODUCT('Enabled_Controller_Mini_Bottom_With_Mount',
-'Enabled_Controller_Mini_Bottom_With_Mount v1',$,(#10951));
+'Enabled_Controller_Mini_Bottom_With_Mount v2',$,(#10951));
 #10953=PRODUCT('Plastic-Case','Plastic-Case',$,(#10951));
 #10954=PRESENTATION_STYLE_ASSIGNMENT((#10956));
 #10955=PRESENTATION_STYLE_ASSIGNMENT((#10957));
