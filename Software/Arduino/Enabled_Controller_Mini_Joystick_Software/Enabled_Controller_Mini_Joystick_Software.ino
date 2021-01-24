@@ -322,7 +322,6 @@ void joystickAction(int mode) {
     joystickY = 0;
   }
 
-  Serial.println(analogRead(JOYSTICK_Y1_PIN));
 
     //Perform button actions
     if(!switchAState) {

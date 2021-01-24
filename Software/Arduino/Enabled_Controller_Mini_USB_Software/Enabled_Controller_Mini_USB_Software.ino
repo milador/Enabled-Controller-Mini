@@ -420,20 +420,20 @@ void initLedFeedback(){
 void keyboardAction(int switch1,int switch2,int switch3,int switch4) {
     if(!switch1) {
       switchFeedback(1,switchMode,switchReactionTime,1);
-      Serial.println("a");
-      //Keyboard.press(switchProperty[0].switchChar);
+      //Serial.println("a");
+      Keyboard.press(switchProperty[0].switchChar);
     } else if(!switch2) {
       switchFeedback(2,switchMode,switchReactionTime,1);
-      Serial.println("b");
-      //Keyboard.press(switchProperty[1].switchChar);
+      //Serial.println("b");
+      Keyboard.press(switchProperty[1].switchChar);
     } else if(!switch3) {
       switchFeedback(3,switchMode,switchReactionTime,1);
-      Serial.println("c");
-      //Keyboard.press(switchProperty[2].switchChar);
+      //Serial.println("c");
+      Keyboard.press(switchProperty[2].switchChar);
     } else if(!switch4) {
       switchFeedback(4,switchMode,switchReactionTime,1);
-      Serial.println("d");
-      //Keyboard.press(switchProperty[3].switchChar);
+      //Serial.println("d");
+      Keyboard.press(switchProperty[3].switchChar);
     }
     else
     {
