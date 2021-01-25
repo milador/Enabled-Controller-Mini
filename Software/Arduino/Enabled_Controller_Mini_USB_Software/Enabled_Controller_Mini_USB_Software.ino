@@ -2,7 +2,7 @@
  * File Name: Enabled_Controller_Mini_USB_Software.ino 
  * Title: Enabled Controller Mini USB Software
  * Developed by: Milad Hajihassan
- * Version Number: 1.0 (20/1/2021)
+ * Version Number: 1.0 (24/1/2021)
  * Github Link: https://github.com/milador/Enabled_Controller_Mini
  ***************************************************************************/
 
@@ -15,7 +15,8 @@
 #include <FlashStorage.h>
 
 
-//Can be changed based on the needs of the users 
+//Can be changed based on the needs of the users
+#define OS_PROFILE  1                                                 //Windows & Android = 1 , macOS = 2                                                  
 #define MORSE_TIMEOUT 1000                                            //Maximum timeout (1000ms =1s)
 #define MORSE_REACTION_TIME 10                                        //Minimum time for a dot or dash switch action ( level 10 : (1.5^1)x10 =15ms , level 1 : (1.5^10)x10=570ms )
 #define MOUSE_MOVE_MULTI 2                                            //Morse mouse move multiplier 
@@ -120,13 +121,25 @@ const colorStruct colorProperty[] {
     {8,"Teal",{0,128,128}}       
 };
 
+
+
 //Switch properties 
+#if (OS_PROFILE == 1)
 const switchStruct switchProperty[] {
     {1,"DOT",'a',5,1},                             //{1=dot,"DOT",'a',5=blue,1=1xMORSE_REACTION}
     {2,"DASH",'b',6,3},                            //{2=dash,"DASH",'b',6=red,3=3xMORSE_REACTION}
     {3,"",'c',1,1},                                //{3,"",'c',1=green,1=1xMORSE_REACTION}
     {4,"",'d',3,1}                                 //{4,"",'d',3=yellow,1=1xMORSE_REACTION}
 };
+#else if (OS_PROFILE == 2)
+const switchStruct switchProperty[] {
+    {1,"DOT",KEY_F1,5,1},                             //{1=dot,"DOT",KEY_F1,5=blue,1=1xMORSE_REACTION}
+    {2,"DASH",KEY_F2,6,3},                            //{2=dash,"DASH",KEY_F2,6=red,3=3xMORSE_REACTION}
+    {3,"",KEY_F3,1,1},                                //{3,"",KEY_F3,1=green,1=1xMORSE_REACTION}
+    {4,"",KEY_F4,3,1}                                 //{4,"",KEY_F4,3=yellow,1=1xMORSE_REACTION}
+};
+#endif
+
 
 //Settings Action properties 
 const settingsActionStruct settingsProperty[] {
@@ -241,7 +254,7 @@ void displayFeatureList(void) {
   Serial.println(" --- ");
   Serial.println("Enabled Controller Mini USB firmware");
   Serial.println(" ");
-  Serial.println("VERSION: 1.0 (20 January 2021)");
+  Serial.println("VERSION: 1.0 (24 January 2021)");
   Serial.println(" ");
   Serial.println(" --- ");
   Serial.println("Features: Adaptive switch, Morse Keyboard, Morse Mouse");
