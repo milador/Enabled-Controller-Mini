@@ -16,7 +16,7 @@
 #define JOYSTICK_DEADZONE 20                                          //Joystick deadzone
 #define SWITCH_REACTION_TIME 50                                       //Minimum time for each switch action
 #define SWITCH_MODE 1                                                 //Only one mode
-#define JOYSTICK_ENABLED false                                        //Joystick enabled or diabled
+#define JOYSTICK_ENABLED true                                        //Joystick enabled or diabled
 
 #define LED_BRIGHTNESS 100                                             //The mode led color brightness which is always on ( Use a low value to decrease power usage )
 #define LED_ACTION_BRIGHTNESS 100                                      //The action led color brightness which can be a higher value than LED_BRIGHTNESS
@@ -103,14 +103,14 @@ typedef struct {
 
 //Color properties 
 const colorStruct colorProperty[] {
-    {1,"Green",{0,50,0}},
-    {2,"Pink",{50,00,20}},
-    {3,"Yellow",{50,50,0}},    
-    {4,"Orange",{50,20,0}},
-    {5,"Blue",{0,0,50}},
-    {6,"Red",{50,0,0}},
-    {7,"Purple",{50,0,50}},
-    {8,"Teal",{0,128,128}}       
+    {1,"Green",{60,0,0}},
+    {2,"Pink",{0,50,60}},
+    {3,"Yellow",{60,50,0}},    
+    {4,"Orange",{20,60,0}},
+    {5,"Blue",{0,0,60}},
+    {6,"Red",{0,60,0}},
+    {7,"Purple",{0,50,128}},
+    {8,"Teal",{128,0,128}}       
 };
 
 //Switch properties 
@@ -118,9 +118,7 @@ const switchStruct switchProperty[] {
     {1,"A",1,5},
     {2,"B",2,3},
     {3,"C",3,1},
-    {4,"D",4,6},
-    {5,"M",5,4}
-    
+    {4,"D",4,6}
 };
 
 //Mode properties 
@@ -159,9 +157,7 @@ void setup() {
   pinMode(SWITCH_D_PIN, INPUT_PULLUP);  
 
   //Initialize the LED pin as an output
-  pinMode(12, OUTPUT); 
-  digitalWrite(12, LOW);
-  pinMode(LED_PIN, OUTPUT);                                                      
+  pinMode(LED_PIN, OUTPUT);                                                
 
 
 };
@@ -317,6 +313,17 @@ void joystickAction(int mode) {
   if(JOYSTICK_ENABLED) {
     joystickX = analogRead(JOYSTICK_X1_PIN);
     joystickY = analogRead(JOYSTICK_Y1_PIN);
+
+    //Perform joystick move Actions
+    int xx = map(joystickX, 0, 1023, -127, 127);
+    int yy = map(joystickY, 0, 1023, -127, 127);
+
+    if (xx<=JOYSTICK_DEADZONE && xx>=-JOYSTICK_DEADZONE) Joystick.setXAxis(0);  
+    else Joystick.setXAxis(xx);  
+    
+    if (yy<=JOYSTICK_DEADZONE && yy>=-JOYSTICK_DEADZONE) Joystick.setYAxis(0);  
+    else Joystick.setYAxis(yy);  
+    
   } else {
     joystickX = 0;
     joystickY = 0;
@@ -351,16 +358,6 @@ void joystickAction(int mode) {
     } else if(switchDState && switchDPrevState) {
       Joystick.releaseButton(switchProperty[3].switchModeButtonNumber-1);
     }
-
-    //Perform joystick move Actions
-    int xx = map(joystickX, 0, 1023, -127, 127);
-    int yy = map(joystickY, 0, 1023, -127, 127);
-
-    if (xx<=JOYSTICK_DEADZONE && xx>=-JOYSTICK_DEADZONE) Joystick.setXAxis(0);  
-    else Joystick.setXAxis(xx);  
-    
-    if (yy<=JOYSTICK_DEADZONE && yy>=-JOYSTICK_DEADZONE) Joystick.setYAxis(0);  
-    else Joystick.setYAxis(yy);  
 
     //Update previous state of buttons 
     switchAPrevState = switchAState;
