@@ -16,7 +16,7 @@
 #define JOYSTICK_DEADZONE 20                                          //Joystick deadzone
 #define SWITCH_REACTION_TIME 50                                       //Minimum time for each switch action
 #define SWITCH_MODE 1                                                 //Only one mode
-#define JOYSTICK_ENABLED true                                        //Joystick enabled or diabled
+#define JOYSTICK_ENABLED false                                        //Joystick enabled or diabled
 
 #define LED_BRIGHTNESS 100                                             //The mode led color brightness which is always on ( Use a low value to decrease power usage )
 #define LED_ACTION_BRIGHTNESS 100                                      //The action led color brightness which can be a higher value than LED_BRIGHTNESS
