@@ -28,8 +28,8 @@
 
 #define SWITCH_A_PIN 6
 #define SWITCH_B_PIN 7
-#define SWITCH_C_PIN 2
-#define SWITCH_D_PIN 3
+#define SWITCH_C_PIN 3
+#define SWITCH_D_PIN 2
 
 //Define Joystick pins
 #define JOYSTICK_X1_PIN A0
