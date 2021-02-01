@@ -2,7 +2,7 @@
 #* File Name: Enabled_Controller_Mini_USB_Software/code.py
 #* Title: Enabled Controller Mini USB CircuitPython Code
 #* Developed by: Milad Hajihassan
-#* Version Number: 1.0 (20/1/2021)
+#* Version Number: 1.0 (31/1/2021)
 #* Github Link: https://github.com/milador/Enabled-Controller-Mini/tree/main/Software/CircuitPython/Enabled_Controller_Mini_USB_Software
 #***************************************************************************/
 
@@ -23,8 +23,8 @@ from adafruit_hid.mouse import Mouse
 led.brightness = 0.3
 switch_time_delay = 0.125
 switch_debug_mode = False    #To serial print = True , To not serial print = False
-switch_operation_mode = 2   #Keyboard = 1, Mouse = 2
-switch_mac_mode = True      #To use keys for mac = True , To use keys for other os = False
+switch_operation_mode = 1    #Keyboard = 1, Mouse = 2
+switch_mac_mode = False      #To use keys for mac = True , To use keys for other os = False
 
 
 #Mac mode or other keyboard mode actions
