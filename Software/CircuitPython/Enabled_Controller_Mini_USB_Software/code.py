@@ -1,7 +1,7 @@
 #***************************************************************************
 #* File Name: Enabled_Controller_Mini_USB_Software/code.py
 #* Title: Enabled Controller Mini USB CircuitPython Code
-#* Developed by: Milad Hajihassan
+#* Developed by: Milador
 #* Version Number: 1.0 (31/1/2021)
 #* Github Link: https://github.com/milador/Enabled-Controller-Mini/tree/main/Software/CircuitPython/Enabled_Controller_Mini_USB_Software
 #***************************************************************************/
