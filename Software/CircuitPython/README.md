@@ -1,6 +1,6 @@
 # Enabled-Controller-Mini CircuitPython software setup
 
-  1. Download latest version of [CircuitPython for QT Py UF2](https://circuitpython.org/board/qtpy_m0/)
+  1. Download the latest version of [CircuitPython for QT Py UF2](https://circuitpython.org/board/qtpy_m0/) from official website or the latest [Tested CircuitPython for QT Py UF2](https://github.com/milador/Enabled-Controller-Mini/raw/main/Software/CircuitPython/UF2/adafruit-circuitpython-qtpy_m0-en_US-6.0.1.uf2) from this repository.
   2. Plug your QT Py into your computer using a known-good USB cable
   3. Double-click the small RST (reset) button, and you will see the NeoPixel RGB LED turn green
   4. You will see a new disk drive appear called QTPY_BOOT under Device and Drivers 
