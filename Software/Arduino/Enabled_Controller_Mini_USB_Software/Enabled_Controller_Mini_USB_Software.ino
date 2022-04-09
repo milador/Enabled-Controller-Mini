@@ -131,7 +131,8 @@ const switchStruct switchProperty[] {
     {3,"",'c',1,1},                                //{3,"",'c',1=green,1=1xMORSE_REACTION}
     {4,"",'d',3,1}                                 //{4,"",'d',3=yellow,1=1xMORSE_REACTION}
 };
-#else if (OS_PROFILE == 2)
+#endif
+#if (OS_PROFILE == 2)
 const switchStruct switchProperty[] {
     {1,"DOT",KEY_F1,5,1},                             //{1=dot,"DOT",KEY_F1,5=blue,1=1xMORSE_REACTION}
     {2,"DASH",KEY_F2,6,3},                            //{2=dash,"DASH",KEY_F2,6=red,3=3xMORSE_REACTION}
@@ -459,7 +460,7 @@ void keyboardAction(int switch1,int switch2,int switch3,int switch4) {
 //***MORSE CODE TO MOUSE CONVERT FUNCTION***//
 
 void morseAction(int mode,int switch1,int switch2) {
-  int i, j;
+  int i;
   static int ctr;
   unsigned long timePressed;
   unsigned long timeNotPressed;
