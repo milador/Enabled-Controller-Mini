@@ -16,7 +16,7 @@
 
 
 //Can be changed based on the needs of the users
-#define OS_PROFILE  1                                                 //Windows & Android = 1 , macOS = 2                                                  
+#define SWITCH_MAC_PROFILE false                                      //Windows,Android,iOS=false MacOS=true 
 #define MORSE_TIMEOUT 1000                                            //Maximum timeout (1000ms =1s)
 #define MORSE_REACTION_TIME 10                                        //Minimum time for a dot or dash switch action ( level 10 : (1.5^1)x10 =15ms , level 1 : (1.5^10)x10=570ms )
 #define MOUSE_MOVE_MULTI 2                                            //Morse mouse move multiplier 
@@ -97,6 +97,7 @@ typedef struct {
   uint8_t switchNumber;
   String switchName;
   uint8_t switchChar;
+  uint8_t switchMacChar;
   uint8_t switchColorNumber;
   uint8_t switchMorseTimeMulti;
 } switchStruct;
@@ -124,22 +125,13 @@ const colorStruct colorProperty[] {
 
 
 //Switch properties 
-#if (OS_PROFILE == 1)
 const switchStruct switchProperty[] {
-    {1,"DOT",'a',5,1},                             //{1=dot,"DOT",'a',5=blue,1=1xMORSE_REACTION}
-    {2,"DASH",'b',6,3},                            //{2=dash,"DASH",'b',6=red,3=3xMORSE_REACTION}
-    {3,"",'c',1,1},                                //{3,"",'c',1=green,1=1xMORSE_REACTION}
-    {4,"",'d',3,1}                                 //{4,"",'d',3=yellow,1=1xMORSE_REACTION}
+    {1,"DOT", 'a',KEY_F1,5,1},                             //{1=dot,"DOT",'a',  KEY_F1,5=blue,1=1xMORSE_REACTION}
+    {2,"DASH",'b',KEY_F2,6,3},                             //{2=dash,"DASH",'b',KEY_F2,6=red,3=3xMORSE_REACTION}
+    {3,"",    'c',KEY_F3,1,1},                             //{3,"",'c',         KEY_F3,1=green,1=1xMORSE_REACTION}
+    {4,"",    'd',KEY_F4,3,1}                              //{4,"",'d',         KEY_F4,3=yellow,1=1xMORSE_REACTION}
 };
-#endif
-#if (OS_PROFILE == 2)
-const switchStruct switchProperty[] {
-    {1,"DOT",KEY_F1,5,1},                             //{1=dot,"DOT",KEY_F1,5=blue,1=1xMORSE_REACTION}
-    {2,"DASH",KEY_F2,6,3},                            //{2=dash,"DASH",KEY_F2,6=red,3=3xMORSE_REACTION}
-    {3,"",KEY_F3,1,1},                                //{3,"",KEY_F3,1=green,1=1xMORSE_REACTION}
-    {4,"",KEY_F4,3,1}                                 //{4,"",KEY_F4,3=yellow,1=1xMORSE_REACTION}
-};
-#endif
+
 
 
 //Settings Action properties 
@@ -155,7 +147,7 @@ const modeStruct modeProperty[] {
     {1,"Keyboard Switch",8},
     {2,"Morse Keyboard",7},
     {3,"Morse Mouse",2},
-    {4,"Settings",4}
+    {5,"Settings",4}
 };
 
 
@@ -227,7 +219,6 @@ void loop() {
       keyboardAction(switchAState,switchBState,switchCState,LOW);
     }
   }
-  //Serial.println(switchAState);
   //Perform actions based on the mode
   switch (switchMode) {
       case 1:
@@ -435,19 +426,19 @@ void keyboardAction(int switch1,int switch2,int switch3,int switch4) {
     if(!switch1) {
       switchFeedback(1,switchMode,switchReactionTime,1);
       //Serial.println("a");
-      Keyboard.press(switchProperty[0].switchChar);
+      (SWITCH_MAC_PROFILE) ? Keyboard.press(switchProperty[0].switchMacChar) : Keyboard.press(switchProperty[0].switchChar);
     } else if(!switch2) {
       switchFeedback(2,switchMode,switchReactionTime,1);
       //Serial.println("b");
-      Keyboard.press(switchProperty[1].switchChar);
+      (SWITCH_MAC_PROFILE) ? Keyboard.press(switchProperty[1].switchMacChar) : Keyboard.press(switchProperty[1].switchChar);
     } else if(!switch3) {
       switchFeedback(3,switchMode,switchReactionTime,1);
       //Serial.println("c");
-      Keyboard.press(switchProperty[2].switchChar);
+      (SWITCH_MAC_PROFILE) ? Keyboard.press(switchProperty[2].switchMacChar) : Keyboard.press(switchProperty[2].switchChar);
     } else if(!switch4) {
       switchFeedback(4,switchMode,switchReactionTime,1);
       //Serial.println("d");
-      Keyboard.press(switchProperty[3].switchChar);
+      (SWITCH_MAC_PROFILE) ? Keyboard.press(switchProperty[3].switchMacChar) : Keyboard.press(switchProperty[3].switchChar);
     }
     else
     {
