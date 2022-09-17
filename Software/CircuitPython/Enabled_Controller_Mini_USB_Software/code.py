@@ -2,7 +2,7 @@
 #* File Name: Enabled_Controller_Mini_USB_Software/code.py
 #* Title: Enabled Controller Mini USB CircuitPython Code
 #* Developed by: Milador
-#* Version Number: 1.0 (31/1/2021)
+#* Version Number: 1.0 (17/9/2022)
 #* Github Link: https://github.com/milador/Enabled-Controller-Mini/tree/main/Software/CircuitPython/Enabled_Controller_Mini_USB_Software
 #***************************************************************************/
 
@@ -18,12 +18,13 @@ led = neopixel.NeoPixel(board.NEOPIXEL, 1)
 from adafruit_hid.keyboard import Keyboard
 from adafruit_hid.keycode import Keycode
 from adafruit_hid.mouse import Mouse
+from adafruit_hid.consumer_control_code import ConsumerControlCode
 
 #Customize values
 led.brightness = 0.3
 switch_time_delay = 0.125
 switch_debug_mode = False    #To serial print = True , To not serial print = False
-switch_operation_mode = 1    #Keyboard = 1, Mouse = 2
+switch_operation_mode = 3    #Keyboard = 1, Mouse = 2, Media = 3
 switch_mac_mode = False      #To use keys for mac = True , To use keys for other os = False
 
 
@@ -44,6 +45,12 @@ switch_a_mouse_action = Mouse.LEFT_BUTTON
 switch_b_mouse_action = Mouse.RIGHT_BUTTON
 switch_c_mouse_action = Mouse.MIDDLE_BUTTON
 switch_d_mouse_action = "DRAG"
+
+#Media actions
+switch_a_media_action = ConsumerControlCode.PLAY_PAUSE
+switch_b_media_action = ConsumerControlCode.SCAN_NEXT_TRACK  
+switch_c_media_action = ConsumerControlCode.VOLUME_DECREMENT 
+switch_d_media_action = ConsumerControlCode.VOLUME_INCREMENT
 
 time.sleep(1)
 
@@ -97,6 +104,9 @@ while True:
         elif (switch_operation_mode == 2):
             mouse_state = 0
             mouse.click(switch_a_mouse_action)
+        elif (switch_operation_mode == 3):
+            consumer_control.press(switch_a_media_action)
+            consumer_control.release()
     if (not button_b.value):
         led[0] = led_color_yellow
         if switch_debug_mode:
@@ -107,6 +117,9 @@ while True:
         elif (switch_operation_mode==2):
             mouse_state = 0
             mouse.click(switch_b_mouse_action)
+        elif (switch_operation_mode == 3):
+            consumer_control.press(switch_b_media_action)
+            consumer_control.release()
     if (not button_c.value):
         led[0] = led_color_green
         if switch_debug_mode:
@@ -117,6 +130,9 @@ while True:
         elif (switch_operation_mode == 2):
             mouse_state = 0
             mouse.click(switch_c_mouse_action)
+        elif (switch_operation_mode == 3):
+            consumer_control.press(switch_c_media_action)
+            consumer_control.release()
     if (not button_d.value):
         led[0] = led_color_red
         if switch_debug_mode:
@@ -133,6 +149,9 @@ while True:
                 mouse.release_all()
                 mouse_state = 0
                 time.sleep(0.2)
+        elif (switch_operation_mode == 3):
+            consumer_control.press(switch_d_media_action)
+            consumer_control.release()
     time.sleep(switch_time_delay)
     if (switch_operation_mode == 2 and mouse_state == 1):
         pass
