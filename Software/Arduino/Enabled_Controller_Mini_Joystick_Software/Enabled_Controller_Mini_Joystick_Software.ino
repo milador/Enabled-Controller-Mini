@@ -3,11 +3,11 @@
  * File Name: Enabled_Controller_Mini_Joystick_Software.ino 
  * Title: Enabled Controller Mini Joystick Software
  * Developed by: Milad Hajihassan
- * Version Number: 1.0 (20/1/2021)
+ * Version Number: 1.2 (01/6/2023)
  * Github Link: https://github.com/milador/Enabled_Controller_Mini
  ***************************************************************************/
 
-#include "Joystick.h"
+#include "XACGamepad.h"
 #include <math.h>
 #include <Adafruit_NeoPixel.h>
 
@@ -16,7 +16,7 @@
 #define JOYSTICK_DEADZONE 20                                          //Joystick deadzone
 #define SWITCH_REACTION_TIME 50                                       //Minimum time for each switch action
 #define SWITCH_MODE 1                                                 //Only one mode
-#define JOYSTICK_ENABLED false                                        //Joystick enabled or diabled
+#define JOYSTICK_ENABLED true                                          //Joystick enabled or diabled
 
 #define LED_BRIGHTNESS 100                                             //The mode led color brightness which is always on ( Use a low value to decrease power usage )
 #define LED_ACTION_BRIGHTNESS 100                                      //The action led color brightness which can be a higher value than LED_BRIGHTNESS
@@ -130,21 +130,16 @@ const modeStruct modeProperty[] {
 //Setup NeoPixel LED
 Adafruit_NeoPixel ledPixels = Adafruit_NeoPixel(1, LED_PIN, NEO_GRB + NEO_KHZ800);
 
-//Defining the joystick REPORT_ID and profile type
-Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID, 
-  JOYSTICK_TYPE_JOYSTICK, 8, 0,
-  true, true, false, 
-  false, false, false,
-  false, false, 
-  false, false, false);   
+//Starts an instance of the XAC compatible gamepad object
+XACGamepad gamepad;
+ 
 
 void setup() {
-
+  
+  gamepad.begin();
   ledPixels.begin();                                                           //Start NeoPixel
   Serial.begin(115200);                                                        //Start Serial
   switchSetup();
-  delay(5);
-  joystickSetup();
   delay(1000);
   initLedFeedback();                                                          //Led will blink in a color to show the current mode 
   delay(5);
@@ -175,12 +170,12 @@ void displayFeatureList(void) {
 
   Serial.println(" ");
   Serial.println(" --- ");
-  Serial.println("This is the Enabled Controller Joystick Software");
+  Serial.println("This is the Enabled Controller Mini XAC Compatible Gamepad Software");
   Serial.println(" ");
-  Serial.println("VERSION: 1.1 (20 January 2021)");
+  Serial.println("VERSION: 1.2 (1 June 2023)");
   Serial.println(" ");
   Serial.println(" --- ");
-  Serial.println("Features: Joystick ");
+  Serial.println("Features: XAC Compatible Gamepad");
   Serial.println(" --- ");
   Serial.println(" ");
 
@@ -284,19 +279,6 @@ void modeFeedback(int modeNumber,int delayTime, int blinkNumber =1)
   
 }
 
-
-//***SETUP SWITCH HID PROFILES FUNCTION (LOAD HID PROFILES)***//
-
-void joystickSetup(){
-      //Setup joystick library 
-      Joystick.begin(); 
-
-      //Set joystick x,y range
-      Joystick.setXAxisRange(-127, 127);
-      Joystick.setYAxisRange(-127, 127);
-
-}
-
 //***PERFORM JOYSTICK ACTIONS FUNCTION***//
 
 void joystickAction(int mode) {
@@ -307,7 +289,7 @@ void joystickAction(int mode) {
   switchCState = digitalRead(SWITCH_C_PIN);
   switchDState = digitalRead(SWITCH_D_PIN);
 
-
+  
 
   //Update joystick values based on available joystick number 
   if(JOYSTICK_ENABLED) {
@@ -317,12 +299,25 @@ void joystickAction(int mode) {
     //Perform joystick move Actions
     int xx = map(joystickX, 0, 1023, -127, 127);
     int yy = map(joystickY, 0, 1023, -127, 127);
-
-    if (xx<=JOYSTICK_DEADZONE && xx>=-JOYSTICK_DEADZONE) Joystick.setXAxis(0);  
-    else Joystick.setXAxis(xx);  
     
-    if (yy<=JOYSTICK_DEADZONE && yy>=-JOYSTICK_DEADZONE) Joystick.setYAxis(0);  
-    else Joystick.setYAxis(yy);  
+
+    if (xx<=JOYSTICK_DEADZONE && xx>=-JOYSTICK_DEADZONE){
+      gamepad.xAxis(0);  
+      gamepad.send();
+    }
+    else {
+      gamepad.xAxis(xx);  
+      gamepad.send();  
+    }
+
+    if (yy<=JOYSTICK_DEADZONE && yy>=-JOYSTICK_DEADZONE){
+      gamepad.yAxis(0);  
+      gamepad.send();    
+      }
+    else {
+      gamepad.yAxis(yy);  
+      gamepad.send();    
+    }
     
   } else {
     joystickX = 0;
@@ -333,30 +328,38 @@ void joystickAction(int mode) {
     //Perform button actions
     if(!switchAState) {
       switchFeedback(1,mode,switchReactionTime,1);
-      Joystick.pressButton(switchProperty[0].switchModeButtonNumber-1);
+      gamepad.press(switchProperty[0].switchModeButtonNumber-1);
+      gamepad.send();
     } else if(switchAState && switchAPrevState) {
-      Joystick.releaseButton(switchProperty[0].switchModeButtonNumber-1);
+      gamepad.release(switchProperty[0].switchModeButtonNumber-1);
+      gamepad.send();
     }
     
     if(!switchBState) {
       switchFeedback(2,mode,switchReactionTime,1);
-      Joystick.pressButton(switchProperty[1].switchModeButtonNumber-1);
+      gamepad.press(switchProperty[1].switchModeButtonNumber-1);
+      gamepad.send();
     } else if(switchBState && switchBPrevState) {
-      Joystick.releaseButton(switchProperty[1].switchModeButtonNumber-1);
+      gamepad.release(switchProperty[1].switchModeButtonNumber-1);
+      gamepad.send();
     }
     
     if(!switchCState) {
       switchFeedback(3,mode,switchReactionTime,1);
-      Joystick.pressButton(switchProperty[2].switchModeButtonNumber-1);
+      gamepad.press(switchProperty[2].switchModeButtonNumber-1);
+      gamepad.send();
     } else if(switchCState && switchDPrevState) {
-      Joystick.releaseButton(switchProperty[2].switchModeButtonNumber-1);
+      gamepad.release(switchProperty[2].switchModeButtonNumber-1);
+      gamepad.send();
     }
     
     if(!switchDState) {
       switchFeedback(4,mode,switchReactionTime,1);
-      Joystick.pressButton(switchProperty[3].switchModeButtonNumber-1);
+      gamepad.press(switchProperty[3].switchModeButtonNumber-1);
+      gamepad.send();
     } else if(switchDState && switchDPrevState) {
-      Joystick.releaseButton(switchProperty[3].switchModeButtonNumber-1);
+      gamepad.release(switchProperty[3].switchModeButtonNumber-1);
+      gamepad.send();
     }
 
     //Update previous state of buttons 
@@ -369,12 +372,6 @@ void joystickAction(int mode) {
 
 }
 
-//***CLEAR JOYSTICK ACTION FUNCTION***//
-
-void joystickClear(){
-    Joystick.setXAxis(0);
-    Joystick.setYAxis(0);  
-}
 
 //***SETUP SWITCH MODE FUNCTION***//
 
